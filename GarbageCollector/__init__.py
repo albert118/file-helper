@@ -4,6 +4,6 @@ __author__ = "Albert Ferguson"
 """
 .. module:: GarbageCollector
     :platform: Unix, Windows
-    :synopsis: Trash file cleaner
+    :synopsis: File directory garbage collection utils
 .. moduleauthor:: Albert Ferguson <albertferguson118@gmail.com>
 """

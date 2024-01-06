@@ -2,9 +2,11 @@ from .BaseValidator import BaseValidator
 from Cleaner.Cleaner import clean_file_name
 from os.path import splitext
 
+
 def get_ftype(fn: str):
     _, fType = splitext(fn)
     return fType.replace('.', '')
+
 
 def get_fname(fn: str, apply_cleaning=True):
     fName, _ = splitext(fn)
@@ -12,7 +14,7 @@ def get_fname(fn: str, apply_cleaning=True):
     if apply_cleaning:
         cleaned_fn = clean_file_name(fName)
         return (cleaned_fn, _)
-    
+
     return (fName, _)
 
 
@@ -45,13 +47,22 @@ GARBAGE_MEDIA = [
     "www YTS MX.jpg"
     "Sample.mkv",
     "Cover.jpg",
-    "Screenshot.png" # any variation,
+    "Screenshot.png"  # any variation,
     "folder.jpg"
 ]
+
 
 class Deletion(BaseValidator):
     def is_garbage_type(self):
         self._is_valid |= get_ftype(self._data) in GARBAGE_FTYPES
+        return self
+
+    def is_given_garabage_type(self, garbage_ftypes: list):
+        if (len(garbage_ftypes) == 0):
+            self._is_valid = True
+            return self
+
+        self._is_valid |= get_ftype(self._data) in garbage_ftypes
         return self
 
     def is_known_garbage(self):
