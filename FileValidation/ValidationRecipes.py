@@ -30,6 +30,6 @@ def validated_deletion(data, garbage_ftypes: list):
         Deletion(data)
         .is_typed()
         .is_non_empty()
-        .is_valid()
         .is_given_garabage_type(garbage_ftypes)
+        .is_valid()
     )

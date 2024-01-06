@@ -23,11 +23,11 @@ class Collector:
 
         try:
             mkdir(self._archive_dir)
-            self._logger.debug(
-                f"created archive directory '{self._archive_dir}'")
+            self._logger.debug("created archive directory")
         except FileExistsError:
-            self._logger.warn(
-                f"cannot create archive directory, as it already exists. Will use the existing...")
+            self._logger.warn("pre-existing archive directory found")
+        finally:
+            self._logger.info(f"will archive files to '{self._archive_dir}'")
 
     def _get_potential_files(self):
         return [fn for fn in listdir(self._cwd) if validated_deletion(fn, self._garbage_extensions)]
@@ -46,7 +46,7 @@ class Collector:
             self._logger.info(f"{len(potential_files)} garbage files found")
 
             for fn in potential_files:
-                self._pickup_garabage(fn, self._cwd)
+                self._pickup_garabage(fn)
         except Exception as ex:
-            self._logger.warn(f"a problem occured: '{ex}'")
+            self._logger.error(f"a problem occured, {ex}")
             return

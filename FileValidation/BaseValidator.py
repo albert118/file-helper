@@ -18,3 +18,5 @@ class BaseValidator:
         self._is_valid &= isfile(self._data)
         self._is_valid &= exists(self._data)
         return self
+
+    def is_valid(self): return self._is_valid
