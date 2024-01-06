@@ -10,8 +10,9 @@ Some common Python file helper utilities I frequently require including,
 
 ```sh
 git clone https://github.com/albert118/file-helper.git
-virtualenv .
-source bin/activate
+python3 -m venv .venv
+source .venv/bin/activate
 pip install --editable file-helper
-python file_helper.py --help
+cp file-helper/config.json config.json
+fh --help
 ```
