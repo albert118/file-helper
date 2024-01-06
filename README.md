@@ -6,8 +6,12 @@ Some common Python file helper utilities I frequently require including,
 - cleaning,
 - and moving
 
-## Usage
+## Quick start
 
 ```sh
+git clone https://github.com/albert118/file-helper.git
+virtualenv .
+source bin/activate
+pip install --editable file-helper
 python file_helper.py --help
 ```

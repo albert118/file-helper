@@ -5,3 +5,5 @@ lib/
 bin/
 
 .collector_archive
+
+*.egg-info

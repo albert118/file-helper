@@ -8,7 +8,7 @@ from GarbageCollector import GarbageCollector
 @click.argument('cwd')
 @click.option('--config-fn', default="config.json", help="provide a custom path to a config file (default is config.jsons)")
 @click.option('--verbose', is_flag=True)
-def main(cwd, config_fn, verbose):
+def cli(cwd, config_fn, verbose):
     logging.basicConfig(level=logging.INFO if not verbose else logging.DEBUG)
     logger = logging.getLogger(__name__)
 
@@ -17,7 +17,3 @@ def main(cwd, config_fn, verbose):
         config = json.load(config_file)
 
     GarbageCollector.Collector(cwd, config, logger).collect()
-
-
-if __name__ == "__main__":
-    main()
