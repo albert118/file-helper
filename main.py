@@ -7,7 +7,7 @@ from GarbageCollector import GarbageCollector
 @click.command()
 @click.argument('cwd')
 @click.option('--config-fn', default="config.json", help="provide a custom path to a config file (default is config.jsons)")
-@click.option('--verbose', '/ -v', default=False)
+@click.option('--verbose', is_flag=True)
 def main(cwd, config_fn, verbose):
     logging.basicConfig(level=logging.INFO if not verbose else logging.DEBUG)
     logger = logging.getLogger(__name__)
@@ -16,17 +16,7 @@ def main(cwd, config_fn, verbose):
     with open(config_fn) as config_file:
         config = json.load(config_file)
 
-    clean_directory(cwd, config, logger)
-
-
-def clean_directory(dir: str, config: dict, logger: logging.Logger):
-    c = GarbageCollector.Collector(dir, config, logger)
-
-    try:
-        c.collect()
-    except Exception as e:
-        logger.error(f"error while removing black listed files '{e}'")
-        raise
+    GarbageCollector.Collector(cwd, config, logger).collect()
 
 
 if __name__ == "__main__":

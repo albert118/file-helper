@@ -1,6 +1,6 @@
 from logging import Logger
 from FileValidation.ValidationRecipes import validated_deletion
-from os import listdir, mkdir
+from os import listdir, mkdir, path
 from shutil import move
 
 
@@ -33,20 +33,28 @@ class Collector:
         return [fn for fn in listdir(self._cwd) if validated_deletion(fn, self._garbage_extensions)]
 
     def _pickup_garabage(self, garbage_fn):
-        try:
-            move(garbage_fn, self._archive_dir)
-            self._logger.debug(f"archived '{garbage_fn}'")
-        except Exception as e:
-            self._logger.warn(f"encountered exception during archival: '{e}'")
+        move(garbage_fn, self._archive_dir)
+        self._logger.debug(f"archived '{garbage_fn}'")
 
     def collect(self):
         try:
             self._logger.info(f"searching '{self._cwd}' for garbage...")
             potential_files = self._get_potential_files()
-            self._logger.info(f"{len(potential_files)} garbage files found")
+            count_potential_files = len(potential_files)
 
-            for fn in potential_files:
-                self._pickup_garabage(fn)
+            if count_potential_files > 0:
+                self._logger.info(
+                    f"{count_potential_files} garbage files found")
+                self._logger.debug(
+                    f"found potential files: [ {', '.join(potential_files)} ]")
+
+                for fn in potential_files:
+                    self._pickup_garabage(path.join(self._cwd, fn))
+
+                self._logger.info(
+                    f"{len(listdir(self._archive_dir))} files archived")
+            else:
+                self._logger.info("no garbage files found, finishing early")
         except Exception as ex:
             self._logger.error(f"a problem occured, {ex}")
             return

@@ -54,7 +54,7 @@ GARBAGE_MEDIA = [
 
 class Deletion(BaseValidator):
     def is_garbage_type(self):
-        self._is_valid |= get_ftype(self._data) in GARBAGE_FTYPES
+        self._is_valid &= get_ftype(self._data) in GARBAGE_FTYPES
         return self
 
     def is_given_garabage_type(self, garbage_ftypes: list):
@@ -62,19 +62,19 @@ class Deletion(BaseValidator):
             self._is_valid = True
             return self
 
-        self._is_valid |= get_ftype(self._data) in garbage_ftypes
+        self._is_valid &= get_ftype(self._data) in garbage_ftypes
         return self
 
     def is_known_garbage(self):
-        self._is_valid |= get_ftype(self._data) in GARBAGE_FTYPES
+        self._is_valid &= get_ftype(self._data) in GARBAGE_FTYPES
         return self
 
     def is_known_garbage_media(self):
-        self._is_valid |= get_ftype(self._data) in GARBAGE_MEDIA
+        self._is_valid &= get_ftype(self._data) in GARBAGE_MEDIA
         return self
 
     def is_custom_cover_photo(self, remove_custom_cover_photo: bool):
         if remove_custom_cover_photo:
-            self._is_valid |= get_ftype(self._data) in COVER_IMAGE_FTYPESS
+            self._is_valid &= get_ftype(self._data) in COVER_IMAGE_FTYPESS
 
         return self

@@ -1,4 +1,4 @@
-from os.path import exists, isfile, join
+from os.path import exists
 
 
 class BaseValidator:
@@ -15,7 +15,6 @@ class BaseValidator:
         return self
 
     def file_exists(self):
-        self._is_valid &= isfile(self._data)
         self._is_valid &= exists(self._data)
         return self
 
