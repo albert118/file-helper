@@ -51,8 +51,7 @@ class Collector:
                 for fn in potential_files:
                     self._pickup_garabage(path.join(self._cwd, fn))
 
-                self._logger.info(
-                    f"{len(listdir(self._archive_dir))} files archived")
+                self._logger.info(f"{count_potential_files} files archived")
             else:
                 self._logger.info("no garbage files found, finishing early")
         except Exception as ex:

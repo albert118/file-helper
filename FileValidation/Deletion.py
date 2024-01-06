@@ -5,7 +5,7 @@ from os.path import splitext
 
 def get_ftype(fn: str):
     _, fType = splitext(fn)
-    return fType.replace('.', '')
+    return fType.replace('.', '').lower()
 
 
 def get_fname(fn: str, apply_cleaning=True):
